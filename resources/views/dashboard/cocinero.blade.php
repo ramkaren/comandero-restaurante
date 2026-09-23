@@ -1,0 +1,1 @@
+@include('dashboard.partials.base', ['title' => 'Dashboard de cocina', 'description' => 'Panel inicial de cocina.'])

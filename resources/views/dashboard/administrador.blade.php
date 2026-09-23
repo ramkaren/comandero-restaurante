@@ -1,0 +1,1 @@
+@include('dashboard.partials.base', ['title' => 'Dashboard administrativo', 'description' => 'Panel de administracion general.'])

@@ -1,0 +1,1 @@
+@include('dashboard.partials.base', ['title' => 'Dashboard general', 'description' => 'Acceso total al sistema.'])

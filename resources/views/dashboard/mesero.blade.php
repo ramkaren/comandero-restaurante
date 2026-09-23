@@ -1,0 +1,1 @@
+@include('dashboard.partials.base', ['title' => 'Cafecito caliente', 'description' => 'Hola! Que tengas un gran turno.', 'links' => [['label' => 'Ver mesas', 'url' => route('mesero.mesas')], ['label' => 'Mis comandas', 'url' => route('mesero.comandas')]]])
