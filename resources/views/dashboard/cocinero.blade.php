@@ -1,1 +1,1 @@
-@include('dashboard.partials.base', ['title' => 'Dashboard de cocina', 'description' => 'Panel inicial de cocina.'])
+@include('dashboard.partials.base', ['title' => 'Cafecito caliente', 'description' => 'Revisa y prepara las comandas del turno.', 'links' => [['label' => 'Abrir comandas', 'url' => route('cocina.index')]]])

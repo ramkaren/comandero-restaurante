@@ -44,7 +44,7 @@ class AuthenticationTest extends TestCase
         $this->assertAuthenticatedAs($user);
         $this->get(route('dashboard'))
             ->assertOk()
-            ->assertSee('Dashboard del mesero')
+            ->assertSee('Cafecito caliente')
             ->assertSee($user->name)
             ->assertSee('Rol: mesero');
     }

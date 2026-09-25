@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ComandaController;
+use App\Http\Controllers\CocinaController;
 use App\Http\Controllers\MesaController;
 use Illuminate\Support\Facades\Route;
 
@@ -44,5 +45,14 @@ Route::middleware('auth')->group(function () {
         Route::patch('/mesero/comandas/{comanda}/detalles/{detalle}/cantidad', [ComandaController::class, 'ajustar'])->name('mesero.comandas.adjust');
         Route::delete('/mesero/comandas/{comanda}/detalles/{detalle}', [ComandaController::class, 'eliminar'])->middleware('permission:orders.delete-product')->name('mesero.comandas.delete');
         Route::post('/mesero/comandas/{comanda}/guardar', [ComandaController::class, 'guardar'])->name('mesero.comandas.save');
+    });
+
+    Route::middleware(['role:cocinero', 'permission:kitchen.view'])->prefix('cocina')->name('cocina.')->group(function () {
+        Route::get('/', [CocinaController::class, 'index'])->name('index');
+        Route::get('/comandas/{comanda}', [CocinaController::class, 'show'])->name('show');
+        Route::post('/comandas/{comanda}/iniciar', [CocinaController::class, 'start'])
+            ->middleware('permission:kitchen.update-status')->name('start');
+        Route::post('/comandas/{comanda}/lista', [CocinaController::class, 'finish'])
+            ->middleware('permission:kitchen.update-status')->name('finish');
     });
 });
