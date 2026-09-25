@@ -4,7 +4,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ComandaController;
 use App\Http\Controllers\CocinaController;
+use App\Http\Controllers\CajeroController;
+use App\Http\Controllers\CuentaController;
 use App\Http\Controllers\MesaController;
+use App\Http\Controllers\PagoController;
+use App\Http\Controllers\TicketController;
+use App\Http\Controllers\VentaController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -54,5 +59,16 @@ Route::middleware('auth')->group(function () {
             ->middleware('permission:kitchen.update-status')->name('start');
         Route::post('/comandas/{comanda}/lista', [CocinaController::class, 'finish'])
             ->middleware('permission:kitchen.update-status')->name('finish');
+    });
+
+    Route::middleware('role:cajero')->prefix('cajero')->name('cajero.')->group(function () {
+        Route::get('/', [CajeroController::class, 'index'])->middleware('permission:accounts.view')->name('dashboard');
+        Route::get('/cuentas', [CuentaController::class, 'index'])->middleware('permission:accounts.view')->name('cuentas.index');
+        Route::get('/cuentas/{cuenta}', [CuentaController::class, 'show'])->middleware('permission:accounts.view')->name('cuentas.show');
+        Route::post('/cuentas/{cuenta}/pagar', [PagoController::class, 'store'])->middleware(['permission:payments.create', 'permission:tickets.create'])->name('pagos.store');
+        Route::get('/pagos', [PagoController::class, 'index'])->middleware('permission:payments.view')->name('pagos.index');
+        Route::get('/tickets', [TicketController::class, 'index'])->middleware('permission:tickets.view')->name('tickets.index');
+        Route::get('/tickets/{ticket}', [TicketController::class, 'show'])->middleware('permission:tickets.view')->name('tickets.show');
+        Route::get('/ventas', [VentaController::class, 'index'])->middleware('permission:sales.view')->name('ventas.index');
     });
 });

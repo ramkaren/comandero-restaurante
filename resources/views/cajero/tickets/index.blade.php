@@ -1,0 +1,4 @@
+@extends('cajero.layout')
+@section('title', 'Tickets')
+@section('heading')<h1>Tickets</h1><p class="muted">Comprobantes emitidos.</p>@endsection
+@section('content')<article class="card"><table><thead><tr><th>Ticket</th><th>Cuenta</th><th>Mesa</th><th>Fecha</th><th></th></tr></thead><tbody>@forelse ($tickets as $ticket)<tr><td>{{ $ticket->numero }}</td><td>#{{ $ticket->cuenta_id }}</td><td>{{ $ticket->cuenta->mesa->numero }}</td><td>{{ $ticket->emitido_at->format('d/m/Y H:i') }}</td><td><a href="{{ route('cajero.tickets.show', $ticket) }}">Consultar</a></td></tr>@empty<tr><td colspan="5">No hay tickets.</td></tr>@endforelse</tbody></table></article>@endsection

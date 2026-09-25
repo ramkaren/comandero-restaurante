@@ -1,0 +1,4 @@
+@extends('cajero.layout')
+@section('title', 'Pagos realizados')
+@section('heading')<h1>Pagos realizados</h1><p class="muted">Historial de cobros confirmados.</p>@endsection
+@section('content')<article class="card"><table><thead><tr><th>Cuenta</th><th>Mesa</th><th>Método</th><th>Monto</th><th>Cajero</th></tr></thead><tbody>@forelse ($pagos as $pago)<tr><td>#{{ $pago->cuenta_id }}</td><td>{{ $pago->cuenta->mesa->numero }}</td><td>{{ $pago->metodo }}</td><td>${{ number_format((float) $pago->monto, 2) }}</td><td>{{ $pago->cajero->name }}</td></tr>@empty<tr><td colspan="5">No hay pagos registrados.</td></tr>@endforelse</tbody></table></article>@endsection
