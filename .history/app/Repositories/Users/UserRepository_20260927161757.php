@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Services\User;
+namespace App\Repositories\Users;
 
-class UserService
+class UserRepository
 {
     /**
      * Create a new class instance.

@@ -14,7 +14,7 @@ Route::prefix('v1')->group(function () {
     });
 
     //Rutas
-    Route::middleware(['auth:api'])->prefix('users')->group(function(){
+    Route::middleware(['auth:api'])->prefix('xx')->group(function(){
         // http://localhost:8000/api/v1/user/{la ruta a consultar}
         Route::get('all',[UserController::class,'GetUser']);
     });

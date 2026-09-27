@@ -4,7 +4,6 @@ namespace App\Http\Controllers\User;
 
 use App\Http\Controllers\Controller;
 use App\Services\Users\UserService;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -17,9 +16,9 @@ class UserController extends Controller
         $this->userService = $user;
     }
 
-    public function GetUser(): JsonResponse
+    public function GetUser()
     {
-        $response = $this->userService->OnGetUsersAll();
+        $response = null;
         return response()->json($response);
     }
 }
