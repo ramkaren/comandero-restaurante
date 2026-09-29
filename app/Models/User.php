@@ -7,13 +7,15 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use PHPOpenSourceSaver\JWTAuth\Contracts\JWTSubject;
 use Spatie\Permission\Traits\HasRoles;
+use Tymon\JWTAuth\Contracts\JWTSubject;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'area_id', 'last_login'])]
 #[Hidden(['password', 'remember_token'])]
+
 class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<UserFactory> */
@@ -30,15 +32,20 @@ class User extends Authenticatable implements JWTSubject
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
-        }
+    }
 
-        public function getJWTIdentifier()
-{
-    return $this->getKey();
-}
+    public function getJWTIdentifier()
+    {
+        return $this->getKey();
+    }
 
-public function getJWTCustomClaims()
-{
-    return [];
-}
+    public function getJWTCustomClaims()
+    {
+        return [];
+    }
+
+    public function area(): BelongsTo
+    {
+        return $this->belongsTo(Areas::class, 'area_id');
+    }
 }
