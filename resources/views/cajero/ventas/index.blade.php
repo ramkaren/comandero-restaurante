@@ -1,0 +1,4 @@
+@extends('cajero.layout')
+@section('title', 'Venta del día')
+@section('heading')<h1>Venta del día</h1><p class="muted">Solo pagos confirmados de hoy.</p>@endsection
+@section('content')<article class="card"><span class="eyebrow">Total vendido</span><h2>${{ number_format((float) $total, 2) }}</h2><table><thead><tr><th>Cuenta</th><th>Método</th><th>Monto</th><th>Hora</th></tr></thead><tbody>@forelse ($pagos as $pago)<tr><td>#{{ $pago->cuenta_id }}</td><td>{{ $pago->metodo }}</td><td>${{ number_format((float) $pago->monto, 2) }}</td><td>{{ $pago->pagado_at->format('H:i') }}</td></tr>@empty<tr><td colspan="4">No hay ventas confirmadas hoy.</td></tr>@endforelse</tbody></table></article>@endsection

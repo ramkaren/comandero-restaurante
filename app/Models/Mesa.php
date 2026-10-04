@@ -29,4 +29,9 @@ class Mesa extends Model
     {
         return $this->hasMany(Comanda::class);
     }
+
+    public function cuentas(): HasMany
+    {
+        return $this->hasMany(Cuenta::class);
+    }
 }

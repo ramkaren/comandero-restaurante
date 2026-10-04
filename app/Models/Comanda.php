@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class Comanda extends Model
 {
@@ -33,6 +34,11 @@ class Comanda extends Model
     public function detalles(): HasMany
     {
         return $this->hasMany(DetalleComanda::class);
+    }
+
+    public function cuenta(): HasOne
+    {
+        return $this->hasOne(Cuenta::class);
     }
 
     public function recalcularTotal(): void

@@ -1,1 +1,1 @@
-@include('dashboard.partials.base', ['title' => 'Dashboard del cajero', 'description' => 'Panel inicial del cajero.'])
+@include('dashboard.partials.base', ['title' => 'Cafecito caliente', 'description' => 'Todo listo para cobrar con calma y claridad.', 'links' => [['label' => 'Cuentas pendientes', 'url' => route('cajero.cuentas.index')], ['label' => 'Pagos realizados', 'url' => route('cajero.pagos.index')], ['label' => 'Venta del día', 'url' => route('cajero.ventas.index')]]])
