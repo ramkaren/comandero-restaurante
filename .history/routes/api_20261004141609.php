@@ -15,7 +15,6 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware('auth:api')->prefix('products')->group(function () {
         Route::get('/', [ProductoController::class, 'getAll']);
-        Route::post('productoByID',[ProductoController::class,'getByID']);
         Route::put('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
         Route::patch('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
         Route::delete('/{producto}', [ProductoController::class, 'destroy'])->middleware('permission:products.delete');

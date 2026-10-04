@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Productos\ProductoController;
+use App\Http\Controllers\ProductoApiController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -14,11 +14,10 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:api')->prefix('products')->group(function () {
-        Route::get('/', [ProductoController::class, 'getAll']);
-        Route::post('productoByID',[ProductoController::class,'getByID']);
-        Route::put('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
-        Route::patch('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
-        Route::delete('/{producto}', [ProductoController::class, 'destroy'])->middleware('permission:products.delete');
+        Route::get('/', [ProductoApiController::class, 'index'])->middleware('permission:products.view');
+        Route::put('/{producto}', [ProductoApiController::class, 'update'])->middleware('permission:products.update');
+        Route::patch('/{producto}', [ProductoApiController::class, 'update'])->middleware('permission:products.update');
+        Route::delete('/{producto}', [ProductoApiController::class, 'destroy'])->middleware('permission:products.delete');
     });
 
 });
