@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Categorias\ActualizarCategoriaController;
-use App\Http\Controllers\Categorias\CategoriasController;
 use App\Http\Controllers\Categorias\CrearCategoriaController;
 use App\Http\Controllers\Categorias\EliminarCategoriaController;
 use App\Http\Controllers\Categorias\ListarCategoriasController;
@@ -21,25 +20,26 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:api')->prefix('products')->group(function () {
-        Route::get('all', [ProductoController::class, 'getAll']);
+        Route::get('/', [ProductoController::class, 'getAll']);
+        Route::post('productoByID', [ProductoController::class, 'getByID']);
         Route::post('store', [ProductoController::class, 'store']);
-        Route::post('getByID', [ProductoController::class, 'getByID']);
         Route::put('update/{producto}', [ProductoController::class, 'update']);
         Route::delete('delete/{producto}', [ProductoController::class, 'destroy']);
     });
 
     Route::middleware('auth:api')->prefix('categories')->group(function () {
-        Route::get('all', [CategoriasController::class, 'getAll']);
-        Route::post('store', [CategoriasController::class, 'store']);
-        Route::post('getByID', [CategoriasController::class, 'getByID']);
-        Route::put('update/{categoria}', [CategoriasController::class, 'update']);
-        Route::delete('delete/{categoria}', [CategoriasController::class, 'destroy']);
+        Route::get('/', [ListarCategoriasController::class, 'index']);
+        Route::post('categoriaByID', [ObtenerCategoriaController::class, 'show']);
+        Route::post('/', [CrearCategoriaController::class, 'store']);
+        Route::put('/{categoria}', [ActualizarCategoriaController::class, 'update']);
+        Route::patch('/{categoria}', [ActualizarCategoriaController::class, 'update']);
+        Route::delete('/{categoria}', [EliminarCategoriaController::class, 'destroy']);
     });
 
     Route::middleware(['auth:api'])->prefix('users')->group(function () {
         Route::get('all', [UserController::class, 'GetUser']);
         Route::get('paginate', [UserController::class, 'GetUserPaginated']);
-        Route::get('getByID/{id}', [UserController::class, 'GetById']);
+        Route::get('userByID/{id}', [UserController::class, 'GetUserById']);
         Route::put('update/{id}', [UserController::class, 'UpdateUser']);
         Route::delete('delete/{id}', [UserController::class, 'DeleteUser']);
     });

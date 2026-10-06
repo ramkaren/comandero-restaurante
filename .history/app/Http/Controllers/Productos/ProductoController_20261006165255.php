@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Productos;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProductoRequest;
-use App\Http\Requests\UpdateProductoRequest;
-use App\Models\Producto;
 use App\Services\Productos\ProductoService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -48,7 +45,7 @@ class ProductoController extends Controller
 
     public function destroy(Producto $producto): JsonResponse
     {
-        $response = $this->productoService->EliminarProducto($producto);
+        $response = $this->roductoService->EliminarProducto($producto);
 
         return response()->json($response, $response['status']);
     }

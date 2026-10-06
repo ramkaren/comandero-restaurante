@@ -20,21 +20,10 @@ class ProductoRepository
         return Producto::findOrFail($producto_id);
     }
 
-    public function CrearProducto(array $data): Producto
-    {
-        $producto = Producto::create($data);
-        return $producto->load('categoria');
-    }
-
-    public function ActualizarProducto(Producto $producto, array $data): Producto
-    {
-        $producto->update($data);
-        return $producto->fresh()->load('categoria');
-    }
-
     public function EliminarProducto(Producto $producto): array
     {
         $producto->update(['activo' => false]);
+
         return ['id' => $producto->id, 'activo' => $producto->fresh()->activo];
     }
 }

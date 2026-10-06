@@ -2,7 +2,6 @@
 
 namespace App\Services\Productos;
 
-use App\Models\Producto;
 use App\Repositories\Productos\ProductoRepository;
 use Exception;
 use Illuminate\Http\Request;

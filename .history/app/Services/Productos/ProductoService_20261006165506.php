@@ -2,7 +2,6 @@
 
 namespace App\Services\Productos;
 
-use App\Models\Producto;
 use App\Repositories\Productos\ProductoRepository;
 use Exception;
 use Illuminate\Http\Request;
@@ -60,30 +59,12 @@ class ProductoService
     public function CrearProducto(array $data): array
     {
         try {
-            $producto = $this->productoRepositorie->CrearProducto($data);
+            $producto = $this->crearProductoRepositorie->CrearProducto($data);
 
             return [
                 'message' => 'Producto creado correctamente.',
                 'status' => 201,
                 'data' => $producto,
-            ];
-        } catch (Exception $e) {
-            return [
-                'message' => $e->getMessage(),
-                'status' => 500,
-            ];
-        }
-    }
-
-    public function ActualizarProducto(Producto $producto, array $data): array
-    {
-        try {
-            $data = $this->productoRepositorie->ActualizarProducto($producto, $data);
-
-            return [
-                'message' => 'Producto actualizado correctamente.',
-                'status' => 200,
-                'data' => $data,
             ];
         } catch (Exception $e) {
             return [

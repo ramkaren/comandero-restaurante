@@ -21,7 +21,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:api')->prefix('products')->group(function () {
-        Route::get('all', [ProductoController::class, 'getAll']);
+        Route::get('/', [ProductoController::class, 'getAll']);
         Route::post('store', [ProductoController::class, 'store']);
         Route::post('getByID', [ProductoController::class, 'getByID']);
         Route::put('update/{producto}', [ProductoController::class, 'update']);
@@ -29,9 +29,9 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:api')->prefix('categories')->group(function () {
-        Route::get('all', [CategoriasController::class, 'getAll']);
+        Route::get('/', [CategoriasController::class, 'getAll']);
         Route::post('store', [CategoriasController::class, 'store']);
-        Route::post('getByID', [CategoriasController::class, 'getByID']);
+        Route::post('categoriaByID', [CategoriasController::class, 'getByID']);
         Route::put('update/{categoria}', [CategoriasController::class, 'update']);
         Route::delete('delete/{categoria}', [CategoriasController::class, 'destroy']);
     });
@@ -39,7 +39,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:api'])->prefix('users')->group(function () {
         Route::get('all', [UserController::class, 'GetUser']);
         Route::get('paginate', [UserController::class, 'GetUserPaginated']);
-        Route::get('getByID/{id}', [UserController::class, 'GetById']);
+        Route::get('userByID/{id}', [UserController::class, 'GetUserById']);
         Route::put('update/{id}', [UserController::class, 'UpdateUser']);
         Route::delete('delete/{id}', [UserController::class, 'DeleteUser']);
     });

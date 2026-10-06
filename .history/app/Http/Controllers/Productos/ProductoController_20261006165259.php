@@ -3,9 +3,6 @@
 namespace App\Http\Controllers\Productos;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreProductoRequest;
-use App\Http\Requests\UpdateProductoRequest;
-use App\Models\Producto;
 use App\Services\Productos\ProductoService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;

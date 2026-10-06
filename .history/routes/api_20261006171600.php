@@ -39,7 +39,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware(['auth:api'])->prefix('users')->group(function () {
         Route::get('all', [UserController::class, 'GetUser']);
         Route::get('paginate', [UserController::class, 'GetUserPaginated']);
-        Route::get('getByID/{id}', [UserController::class, 'GetById']);
+        Route::get('getByID/{id}', [UserController::class, 'GetUserById']);
         Route::put('update/{id}', [UserController::class, 'UpdateUser']);
         Route::delete('delete/{id}', [UserController::class, 'DeleteUser']);
     });
