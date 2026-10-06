@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Productos\ProductoController;
+use App\Http\Controllers\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -19,6 +20,14 @@ Route::prefix('v1')->group(function () {
         Route::put('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
         Route::patch('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
         Route::delete('/{producto}', [ProductoController::class, 'destroy'])->middleware('permission:products.delete');
+    });
+
+    Route::middleware(['auth:api'])->prefix('users')->group(function(){
+        Route::get('all', [UserController::class, 'GetUser']);
+        Route::get('paginate', [UserController::class, 'GetUserPaginated']);
+        Route::get('{id}', [UserController::class, 'GetUserById']);
+        Route::put('{id}', [UserController::class, 'UpdateUser']);
+        Route::delete('{id}', [UserController::class, 'DeleteUser']);
     });
 
 });
