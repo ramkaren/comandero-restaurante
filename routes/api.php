@@ -1,7 +1,11 @@
 <?php
 
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Categorias\CategoriaController;
+use App\Http\Controllers\Categorias\ActualizarCategoriaController;
+use App\Http\Controllers\Categorias\CrearCategoriaController;
+use App\Http\Controllers\Categorias\EliminarCategoriaController;
+use App\Http\Controllers\Categorias\ListarCategoriasController;
+use App\Http\Controllers\Categorias\ObtenerCategoriaController;
 use App\Http\Controllers\Productos\ActualizarProductoController;
 use App\Http\Controllers\Productos\CrearProductoController;
 use App\Http\Controllers\Productos\EliminarProductoController;
@@ -27,12 +31,12 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::middleware('auth:api')->prefix('categories')->group(function () {
-        Route::get('/', [CategoriaController::class, 'getAll'])->middleware('permission:categories.view');
-        Route::post('categoriaByID', [CategoriaController::class, 'getByID'])->middleware('permission:categories.view');
-        Route::post('/', [CategoriaController::class, 'store'])->middleware('permission:categories.create');
-        Route::put('/{categoria}', [CategoriaController::class, 'update'])->middleware('permission:categories.update');
-        Route::patch('/{categoria}', [CategoriaController::class, 'update'])->middleware('permission:categories.update');
-        Route::delete('/{categoria}', [CategoriaController::class, 'destroy'])->middleware('permission:categories.delete');
+        Route::get('/', [ListarCategoriasController::class, 'index'])->middleware('permission:categories.view');
+        Route::post('categoriaByID', [ObtenerCategoriaController::class, 'show'])->middleware('permission:categories.view');
+        Route::post('/', [CrearCategoriaController::class, 'store'])->middleware('permission:categories.create');
+        Route::put('/{categoria}', [ActualizarCategoriaController::class, 'update'])->middleware('permission:categories.update');
+        Route::patch('/{categoria}', [ActualizarCategoriaController::class, 'update'])->middleware('permission:categories.update');
+        Route::delete('/{categoria}', [EliminarCategoriaController::class, 'destroy'])->middleware('permission:categories.delete');
     });
 
 });
