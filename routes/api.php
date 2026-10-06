@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Categorias\CategoriaController;
 use App\Http\Controllers\Productos\ActualizarProductoController;
+use App\Http\Controllers\Productos\CrearProductoController;
 use App\Http\Controllers\Productos\EliminarProductoController;
 use App\Http\Controllers\Productos\ProductoController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ Route::prefix('v1')->group(function () {
     Route::middleware('auth:api')->prefix('products')->group(function () {
         Route::get('/', [ProductoController::class, 'getAll']);
         Route::post('productoByID',[ProductoController::class,'getByID']);
+        Route::post('/', [CrearProductoController::class, 'store'])->middleware('permission:products.create');
         Route::put('/{producto}', [ActualizarProductoController::class, 'update'])->middleware('permission:products.update');
         Route::patch('/{producto}', [ActualizarProductoController::class, 'update'])->middleware('permission:products.update');
         Route::delete('/{producto}', [EliminarProductoController::class, 'destroy'])->middleware('permission:products.delete');
