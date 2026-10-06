@@ -14,19 +14,19 @@ Route::prefix('v1')->group(function () {
         Route::post('refresh', [AuthController::class, 'refresh']);
     });
 
+    Route::middleware(['auth:api'])->prefix('users')->group(function () {
+        Route::get('all', [UserController::class, 'GetUser']);
+        Route::get('paginate', [UserController::class, 'GetUserPaginated']);
+        Route::get('userByID{id}', [UserController::class, 'GetUserById']);
+        Route::put('update/{id}', [UserController::class, 'UpdateUser']);
+        Route::delete('delete/{id}', [UserController::class, 'DeleteUser']);
+    });
+
     Route::middleware('auth:api')->prefix('products')->group(function () {
         Route::get('/', [ProductoController::class, 'getAll']);
         Route::post('productoByID', [ProductoController::class, 'getByID']);
         Route::put('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
         Route::patch('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
         Route::delete('/{producto}', [ProductoController::class, 'destroy'])->middleware('permission:products.delete');
-    });
-
-    Route::middleware(['auth:api'])->prefix('users')->group(function () {
-        Route::get('all', [UserController::class, 'GetUser']);
-        Route::get('paginate', [UserController::class, 'GetUserPaginated']);
-        Route::get('userByID/{id}', [UserController::class, 'GetUserById']);
-        Route::put('update/{id}', [UserController::class, 'UpdateUser']);
-        Route::delete('delete/{id}', [UserController::class, 'DeleteUser']);
     });
 });
