@@ -20,6 +20,8 @@ Route::prefix('v1')->group(function () {
         Route::put('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
         Route::patch('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
         Route::delete('/{producto}', [ProductoController::class, 'destroy'])->middleware('permission:products.delete');
+        Route::post('/', [ProductoController::class, 'store'])->middleware('permission:products.create');
+        Route::get('grouped', [ProductoController::class, 'groupedByCategory']);
     });
 
     Route::middleware(['auth:api'])->prefix('users')->group(function(){

@@ -11,6 +11,7 @@ class ProductoRepository
     {
         return Producto::query()
             ->with('categoria')
+            ->where('activo', true)
             ->orderBy('id')
             ->paginate($perPage);
     }
