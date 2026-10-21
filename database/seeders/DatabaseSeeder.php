@@ -18,7 +18,7 @@ class DatabaseSeeder extends Seeder
             AreasSeed::class,
             RolePermissionSeeder::class,
             RestaurantDemoSeeder::class,
-            MenuProductosSeeder::class
+            MenuProductosSeeder::class,
         ]);
     }
 }

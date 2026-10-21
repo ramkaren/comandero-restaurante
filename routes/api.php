@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Pedidos\PedidoController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Productos\ProductoController;
 use App\Http\Controllers\User\UserController;
@@ -32,4 +33,7 @@ Route::prefix('v1')->group(function () {
         Route::delete('{id}', [UserController::class, 'DeleteUser']);
     });
 
-});
+    Route::middleware('auth:api')->prefix('orders')->group(function () {
+    Route::get('/', [PedidoController::class, 'index']);
+    });
+    });
