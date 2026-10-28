@@ -3,12 +3,20 @@
 namespace App\Http\Controllers\Pedidos;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AgregarItemsPedidoRequest;
+use App\Http\Requests\StorePedidoRequest;
 use App\Models\Comanda;
+use App\Services\Pedidos\PedidoService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 class PedidoController extends Controller
 {
+    public function __construct(private PedidoService $pedidoService)
+    {
+        
+    }
+
     public function index(Request $request): JsonResponse
     {
         $request->validate([
@@ -54,6 +62,28 @@ class PedidoController extends Controller
             'message' => 'success',
             'status'  => 200,
             'data'    => $pedidos,
+        ]);
+    }
+     
+     public function store(StorePedidoRequest $request): JsonResponse
+    {
+        $comanda = $this->pedidoService->abrir($request->validated(), $request->user()->id);
+ 
+        return response()->json([
+            'message' => 'success',
+            'status'  => 201,
+            'data'    => $this->formatear($comanda),
+        ], 201);
+    }
+ 
+    public function addItems(AgregarItemsPedidoRequest $request, Comanda $comanda): JsonResponse
+    {
+        $comanda = $this->pedidoService->agregarItems($comanda->id, $request->validated()['items']);
+ 
+        return response()->json([
+            'message' => 'success',
+            'status'  => 200,
+            'data'    => $this->formatear($comanda),
         ]);
     }
 
