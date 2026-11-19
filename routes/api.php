@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Dashboard\ResumenAdminController;
+use App\Http\Controllers\Actividad\ActividadController;
+use App\Http\Controllers\Pedidos\PedidoController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Categorias\ActualizarCategoriaController;
 use App\Http\Controllers\Categorias\CategoriasController;
@@ -9,6 +12,8 @@ use App\Http\Controllers\Categorias\ListarCategoriasController;
 use App\Http\Controllers\Categorias\ObtenerCategoriaController;
 use App\Http\Controllers\Productos\ProductoController;
 use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Mesas\MesaAdminController;
+use App\Http\Controllers\Reportes\VentasReporteController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -38,11 +43,32 @@ Route::prefix('v1')->group(function () {
         Route::delete('delete/{categoria}', [CategoriasController::class, 'destroy']);
     });
 
-    Route::middleware(['auth:api'])->prefix('users')->group(function () {
-        Route::get('all', [UserController::class, 'GetUser']);
-        Route::get('paginate', [UserController::class, 'GetUserPaginated']);
-        Route::get('getByID/{id}', [UserController::class, 'GetUserById']);
-        Route::put('update/{id}', [UserController::class, 'UpdateUser']);
-        Route::delete('delete/{id}', [UserController::class, 'DeleteUser']);
+    Route::middleware('auth:api')->prefix('orders')->group(function () {
+        Route::get('/', [PedidoController::class, 'index']);
+        Route::post('/', [PedidoController::class, 'store']);
+        Route::post('{comanda}/items', [PedidoController::class, 'addItems']);
     });
-});
+
+    Route::middleware('auth:api')->prefix('tables')->group(function () {
+        Route::get('/', [MesaAdminController::class, 'index']);
+        Route::post('/', [MesaAdminController::class, 'store']);
+        Route::get('{mesa}', [MesaAdminController::class, 'show']);
+        Route::put('{mesa}', [MesaAdminController::class, 'update']);
+        Route::patch('{mesa}', [MesaAdminController::class, 'update']);
+        Route::delete('{mesa}', [MesaAdminController::class, 'destroy']);
+    });
+
+    Route::middleware('auth:api')->prefix('reports')->group(function () {
+    Route::get('sales', [VentasReporteController::class, 'sales']);
+    Route::get('sales/comparison', [VentasReporteController::class, 'comparison']);
+    });
+
+    Route::middleware('auth:api')->prefix('dashboard')->group(function () {
+    Route::get('summary', [ResumenAdminController::class, 'summary']);
+    });
+
+    Route::middleware('auth:api')->prefix('activity')->group(function () {
+    Route::get('/', [ActividadController::class, 'index']);
+    });
+
+    });
