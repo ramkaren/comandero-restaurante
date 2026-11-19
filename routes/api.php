@@ -20,13 +20,13 @@ Route::prefix('v1')->group(function () {
         Route::post('refresh', [AuthController::class, 'refresh']);
     });
 
-    Route::middleware('auth:api')->prefix('products')->group(function () {
+    Route::middleware(['auth:api'])->prefix('products')->group(function () {
         Route::get('/', [ProductoController::class, 'getAll']);
         Route::post('productoByID',[ProductoController::class,'getByID']);
-        Route::put('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
-        Route::patch('/{producto}', [ProductoController::class, 'update'])->middleware('permission:products.update');
-        Route::delete('/{producto}', [ProductoController::class, 'destroy'])->middleware('permission:products.delete');
-        Route::post('/', [ProductoController::class, 'store'])->middleware('permission:products.create');
+        Route::put('/{producto}', [ProductoController::class, 'update']);
+        Route::patch('/{producto}', [ProductoController::class, 'update']);
+        Route::delete('/{producto}', [ProductoController::class, 'destroy']);
+        Route::post('/', [ProductoController::class, 'store']);
         Route::get('grouped', [ProductoController::class, 'groupedByCategory']);
     });
 
