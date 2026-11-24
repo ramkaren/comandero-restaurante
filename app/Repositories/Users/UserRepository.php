@@ -19,9 +19,9 @@ class UserRepository
         return User::paginate($perPage);
     }
 
-    public function FindById(int $_id): User
+    public function FindById(int $id): User
     {
-        return User::findOrFail($_id);
+        return User::findOrFail($id);
     }
      
     public function UpdateUser(int $id, array $data): User

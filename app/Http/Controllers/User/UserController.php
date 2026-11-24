@@ -12,12 +12,6 @@ class UserController extends Controller
 
     private UserService $userService;
 
-    /*
-    -- Crear un end-point para la actualizacion de usuarios
-    -- Crear un end-point para la eliminacion de usuario
-    -- Crear un end-point para traer a todos los usuarios pero paginado, con la paginacion nativa de laravel
-    */
-
     public function __construct(UserService $user)
     {
         $this->userService = $user;
