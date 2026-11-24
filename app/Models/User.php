@@ -23,6 +23,8 @@ class User extends Authenticatable implements JWTSubject
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, HasRoles, Notifiable, SoftDeletes;
+    
+    protected $guard_name = 'api';
 
     public function pagosComoCajero(): HasMany
     {

@@ -14,11 +14,14 @@ class Comanda extends Model
 
     protected $table = 'comandas';
 
-    protected $fillable = ['mesa_id', 'mesero_id', 'estado', 'total'];
+    protected $fillable = ['mesa_id', 'mesero_id', 'estado', 'estado_cocina', 'finalizada_en', 'total'];
 
     protected function casts(): array
     {
-        return ['total' => 'decimal:2'];
+        return [
+            'total' => 'decimal:2',
+            'finalizada_en' => 'datetime',
+        ];
     }
 
     public function mesa(): BelongsTo

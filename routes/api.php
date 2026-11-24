@@ -9,6 +9,8 @@ use App\Http\Controllers\Productos\ProductoController;
 use App\Http\Controllers\User\UserController;
 use App\Http\Controllers\Mesas\MesaAdminController;
 use App\Http\Controllers\Reportes\VentasReporteController;
+use App\Http\Controllers\Cocina\CocinaController;
+use App\Http\Controllers\Cajero\CajeroController;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('v1')->group(function () {
@@ -75,4 +77,20 @@ Route::prefix('v1')->group(function () {
         Route::get('/', [ActividadController::class, 'index']);
     });
 
+      Route::middleware('auth:api')->prefix('mesero')->group(function () {
+        Route::get('tables', [MesaAdminController::class, 'index']);
+        Route::post('orders', [PedidoController::class, 'store']);
+    });
+
+      Route::middleware('auth:api')->prefix('kitchen')->group(function () {
+        Route::get('orders', [CocinaController::class, 'index']);
+        Route::patch('orders/{comanda}/status', [CocinaController::class, 'updateStatus']);
+    });
+
+      Route::middleware('auth:api')->prefix('cashier')->group(function () {
+        Route::get('accounts', [CajeroController::class, 'index']);
+        Route::post('accounts/{cuenta}/payments', [CajeroController::class, 'pay']);
+        Route::get('summary/today', [CajeroController::class, 'summaryToday']);
+        Route::get('tickets/{ticket}', [CajeroController::class, 'ticket']);
+    });
 });
